@@ -2,7 +2,7 @@ class Survey::Answer < ActiveRecord::Base
 
   self.table_name = "survey_answers"
 
-  acceptable_attributes :attempt, :option, :correct, :option_id, :question, :question_id
+  acceptable_attributes :attempt, :option, :correct, :option_id, :question, :question_id, :date
 
   # associations
   belongs_to :attempt
@@ -14,7 +14,7 @@ class Survey::Answer < ActiveRecord::Base
   validates :option_id, :uniqueness => { :scope => [:attempt_id, :question_id] }
 
   # callbacks
-  after_create :characterize_answer
+  after_create :characterize_answer, :simplify_date
 
   def value
     points = (self.option.nil? ? Survey::Option.find(option_id) : self.option).weight
@@ -29,6 +29,10 @@ class Survey::Answer < ActiveRecord::Base
 
   def characterize_answer
     update_attribute(:correct, option.correct?)
+  end
+
+  def simplify_date
+    update_attribute(:date, self.created_at.strftime("%m/%d/%Y"))
   end
 
 end
