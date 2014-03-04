@@ -1,5 +1,10 @@
 # Survey
 
+FORK NOTES
+Tiny tweak to the gem  -- Answer model changed to create a "simplified date" so you can pull answers by the date they were submitted. 
+
+The migration file has not been updated so an additional migration adding the "date" column needs to be done 
+
 [![Build Status](https://travis-ci.org/runtimerevolution/survey.png?branch=master)](https://travis-ci.org/runtimerevolution/survey)
 [![Code Climate](https://codeclimate.com/github/runtimerevolution/survey.png)](https://codeclimate.com/github/runtimerevolution/survey)
 ### Surveys on Rails...
